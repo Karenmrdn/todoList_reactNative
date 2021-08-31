@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Text, FlatList } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 import AddTodo from "./components/AddTodo";
 import TodosList from "./components/TodosList";
+import Button from "./components/Button";
 
 export default function App() {
   const [todos, setTodos] = useState([]);
+  const [isAddMode, setIsAddMode] = useState(false);
 
   const handleAddTodo = (enteredTodo) => {
     if (!enteredTodo) {
@@ -17,11 +19,28 @@ export default function App() {
     ]);
   };
 
+  const removeTodo = (id) => {
+    setTodos((prev) => prev.filter((todo) => todo.id !== id));
+  };
+
+  const toggleAddMode = () => {
+    setIsAddMode((prev) => !prev);
+  };
+
   return (
     <View style={styles.screen}>
-      <Text style={styles.titleText}>Todo List</Text>
-      <AddTodo onTodoAdd={handleAddTodo} />
-      <TodosList todos={todos} />
+      <View style={styles.header}>
+        <Text style={styles.titleText}>Todo List</Text>
+        <View>
+          <Button title="+" onPress={toggleAddMode} style={styles.btnAdd} />
+        </View>
+      </View>
+      <AddTodo
+        onAddTodo={handleAddTodo}
+        onClose={toggleAddMode}
+        visible={isAddMode}
+      />
+      <TodosList todos={todos} onRemoveTodo={removeTodo} />
     </View>
   );
 }
@@ -31,6 +50,16 @@ const styles = StyleSheet.create({
     marginTop: 50,
     marginHorizontal: 30,
     marginBottom: 115,
+  },
+  header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginVertical: 16,
+  },
+  btnAdd: {
+    width: 36,
+    borderRadius: 999,
   },
   titleText: {
     fontSize: 32,

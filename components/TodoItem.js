@@ -1,11 +1,16 @@
 import React from "react";
-import { Text, StyleSheet } from "react-native";
+import { Text, StyleSheet, TouchableOpacity } from "react-native";
 
-const TodoItem = ({ itemData }) => {
+const TodoItem = (props) => {
   return (
-    <Text style={styles.listItem}>
-      {itemData.index + 1 + ". " + itemData.item.text}
-    </Text>
+    <TouchableOpacity
+      onPress={() => props.onRemoveTodo(props.itemData.item.id)}
+      activeOpacity={0.8}
+    >
+      <Text style={styles.listItem}>
+        {props.itemData.index + 1 + ". " + props.itemData.item.text}
+      </Text>
+    </TouchableOpacity>
   );
 };
 
