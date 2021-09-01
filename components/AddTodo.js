@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, TextInput, StyleSheet, Modal } from "react-native";
+import { View, TextInput, StyleSheet, Modal, Text } from "react-native";
 import Button from "./Button";
 
 const AddTodo = (props) => {
@@ -17,6 +17,7 @@ const AddTodo = (props) => {
   return (
     <Modal visible={props.visible} animationType="slide">
       <View style={styles.addTodoContainer}>
+        <Text style={styles.titleText}>Task adding form</Text>
         <TextInput
           value={enteredTodo}
           onChangeText={handleNewTodoChange}
@@ -63,6 +64,11 @@ const styles = StyleSheet.create({
     width: "45%",
     borderRadius: 8,
     backgroundColor: "#000",
+  },
+  titleText: {
+    fontSize: 32,
+    fontWeight: "bold",
+    marginBottom: 16,
   },
 });
 

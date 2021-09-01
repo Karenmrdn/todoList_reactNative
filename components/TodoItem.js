@@ -16,7 +16,7 @@ const TodoItem = (props) => {
           onPress={handleStatusChange}
           color="#2196F3"
         />
-        <Text>{props.text}</Text>
+        <Text style={{ flex: 1 }}>{props.text}</Text>
       </View>
       <Button
         title="delete"
@@ -31,7 +31,6 @@ const TodoItem = (props) => {
 const styles = StyleSheet.create({
   wrapper: {
     flexDirection: "row",
-    justifyContent: "space-between",
     alignItems: "center",
     borderColor: "#2196F3",
     borderWidth: 1,
@@ -42,12 +41,10 @@ const styles = StyleSheet.create({
   firstContainer: {
     flexDirection: "row",
     alignItems: "center",
+    flex: 1,
   },
   btn: {
     backgroundColor: "#fff",
-    // borderColor: "#f44336",
-    // borderWidth: 1,
-    // borderRadius: 8,
   },
   text: {
     color: "#f44336",
