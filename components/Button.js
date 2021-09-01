@@ -8,7 +8,7 @@ const Button = (props) => {
       activeOpacity={0.8}
       style={[styles.btn, props.style]}
     >
-      <Text style={styles.text}>{props.title}</Text>
+      <Text style={[styles.text, props.textStyle]}>{props.title}</Text>
     </TouchableOpacity>
   );
 };

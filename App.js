@@ -4,8 +4,14 @@ import AddTodo from "./components/AddTodo";
 import TodosList from "./components/TodosList";
 import Button from "./components/Button";
 
+const initialTodos = [
+  { id: "1", text: "Learn React Native", checked: false },
+  { id: "2", text: "Learn React", checked: true },
+  { id: "3", text: "Learn JS", checked: true },
+];
+
 export default function App() {
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState(initialTodos);
   const [isAddMode, setIsAddMode] = useState(false);
 
   const handleAddTodo = (enteredTodo) => {
@@ -14,8 +20,12 @@ export default function App() {
     }
 
     setTodos((prev) => [
+      {
+        id: (Date.now() + Math.random()).toString(),
+        text: enteredTodo,
+        checked: false,
+      },
       ...prev,
-      { id: (Date.now() + Math.random()).toString(), text: enteredTodo },
     ]);
   };
 
@@ -27,29 +37,42 @@ export default function App() {
     setIsAddMode((prev) => !prev);
   };
 
+  const toggleTodoStatus = (id) => {
+    const updatedTodos = todos.map((todo) => {
+      if (todo.id === id) {
+        todo.checked = !todo.checked;
+      }
+      return todo;
+    });
+    updatedTodos.sort((a, b) => a.checked - b.checked);
+    setTodos(updatedTodos);
+  };
+
   return (
     <View style={styles.screen}>
       <View style={styles.header}>
         <Text style={styles.titleText}>Todo List</Text>
-        <View>
-          <Button title="+" onPress={toggleAddMode} style={styles.btnAdd} />
-        </View>
+        <Button title="+" onPress={toggleAddMode} style={styles.btnAdd} />
       </View>
       <AddTodo
         onAddTodo={handleAddTodo}
         onClose={toggleAddMode}
         visible={isAddMode}
       />
-      <TodosList todos={todos} onRemoveTodo={removeTodo} />
+      <TodosList
+        todos={todos}
+        onRemoveTodo={removeTodo}
+        onStatusChange={toggleTodoStatus}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   screen: {
-    marginTop: 50,
+    marginTop: 40,
     marginHorizontal: 30,
-    marginBottom: 115,
+    marginBottom: 90,
   },
   header: {
     flexDirection: "row",

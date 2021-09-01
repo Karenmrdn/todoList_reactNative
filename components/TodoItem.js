@@ -1,28 +1,57 @@
 import React from "react";
-import { Text, StyleSheet, TouchableOpacity } from "react-native";
+import { Text, StyleSheet, View } from "react-native";
+import { Checkbox } from "react-native-paper";
+import Button from "./Button";
 
 const TodoItem = (props) => {
+  const handleStatusChange = () => {
+    props.onStatusChange(props.id);
+  };
+
   return (
-    <TouchableOpacity
-      onPress={() => props.onRemoveTodo(props.itemData.item.id)}
-      activeOpacity={0.8}
-    >
-      <Text style={styles.listItem}>
-        {props.itemData.index + 1 + ". " + props.itemData.item.text}
-      </Text>
-    </TouchableOpacity>
+    <View style={styles.wrapper}>
+      <View style={styles.firstContainer}>
+        <Checkbox
+          status={props.checked ? "checked" : "unchecked"}
+          onPress={handleStatusChange}
+          color="#2196F3"
+        />
+        <Text>{props.text}</Text>
+      </View>
+      <Button
+        title="delete"
+        onPress={() => props.onRemoveTodo(props.id)}
+        style={styles.btn}
+        textStyle={styles.text}
+      />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  listItem: {
-    backgroundColor: "#61b4ec",
-    borderColor: "#005dd6",
+  wrapper: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    borderColor: "#2196F3",
     borderWidth: 1,
+    borderRadius: 8,
     padding: 8,
     marginVertical: 4,
-    borderRadius: 8,
-    justifyContent: "space-between",
+  },
+  firstContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  btn: {
+    backgroundColor: "#fff",
+    // borderColor: "#f44336",
+    // borderWidth: 1,
+    // borderRadius: 8,
+  },
+  text: {
+    color: "#f44336",
+    fontWeight: "bold",
   },
 });
 

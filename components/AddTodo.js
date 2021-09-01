@@ -43,8 +43,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   input: {
-    borderBottomColor: "black",
+    borderColor: "#2196F3",
     borderWidth: 1,
+    borderRadius: 8,
     padding: 8,
     marginBottom: 8,
     width: "80%",
@@ -56,9 +57,11 @@ const styles = StyleSheet.create({
   },
   btnAdd: {
     width: "45%",
+    borderRadius: 8,
   },
   btnClose: {
     width: "45%",
+    borderRadius: 8,
     backgroundColor: "#000",
   },
 });

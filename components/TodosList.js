@@ -7,7 +7,13 @@ const TodosList = (props) => {
     <FlatList
       data={props.todos}
       renderItem={(itemData) => (
-        <TodoItem itemData={itemData} onRemoveTodo={props.onRemoveTodo} />
+        <TodoItem
+          id={itemData.item.id}
+          text={itemData.item.text}
+          checked={itemData.item.checked}
+          onRemoveTodo={props.onRemoveTodo}
+          onStatusChange={props.onStatusChange}
+        />
       )}
     />
   );
